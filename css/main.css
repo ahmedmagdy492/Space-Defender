@@ -1,0 +1,117 @@
+/* global styling */
+@font-face
+{
+    font-family: "SEINBLUE";
+    src: url(../fonts/SEINBLUE.ttf);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #000;
+    color: #fff;
+    font-family: "SEINBLUE";
+    display: grid;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    -moz-user-select: none;
+}
+.img-sound{
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    padding: 5px;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 50%;
+}
+/* container element */
+.container{
+    text-align: center;
+}
+.container h1{
+    font-size: 90px;
+}
+.container h4{
+    padding: 20px;
+}
+.blink-anim{
+    animation: blink 1s infinite;
+    transition: opacity 0.5s ease;
+}
+.pressed-anim{
+    animation: shaking 0.1s infinite;
+    transition: opacity 0.1s ease;
+}
+@keyframes shaking{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+@keyframes blink{
+    0%{
+        opacity: 1;
+        text-shadow: 1px 1px 4px #fff;
+    }
+    100%{
+        opacity: 0;
+        text-shadow: 0px 0px 14px #fff;
+    }
+}
+/* main menu (hidden by default) */
+.container .main-menu{
+    display: none;
+    
+}
+.container .main-menu .btns{
+    padding: 20px;
+    margin: 50px;
+}
+.container .main-menu .btns div{
+    margin: 20px;
+    font-size: 30px;
+}
+.container .main-menu .btns div span:hover{
+    text-shadow: 0px 0px 14px #fff;
+    cursor: pointer;
+}
+
+.box{
+    position: absolute;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 9px #fff;
+    left: 50px;
+    top: 50px;
+    animation: move 4s;
+    transition: all 0.5s;
+}
+@keyframes move{
+    0%{
+        top: 50px;
+        left: -5000px;
+    }
+    100%{
+        top: 50px;
+        left: 50px;
+    }
+}
+
+/* input styling */
+#name{
+    padding: 10px;
+    background: none;
+    color: #fff;
+    border:none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 30px;
+}
