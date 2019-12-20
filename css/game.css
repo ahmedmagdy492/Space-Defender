@@ -1,0 +1,55 @@
+/* global styling */
+@font-face
+{
+    font-family: "SEINBLUE";
+    src: url(../fonts/SEINBLUE.ttf);
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: url('../imgs/back.png');
+    color: #fff;
+    font-family: "SEINBLUE";
+    user-select: none;
+    overflow-x: hidden;
+}
+
+/* container styling */
+/* toolbar styling*/
+.container .toolbar{
+    padding: 10px;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.container .toolbar > *{
+    margin-left: 20px;
+}
+.container .toolbar .exit{
+    font-size: 20px;
+    cursor: pointer;
+}
+.container .toolbar .exit:hover{
+    text-shadow: 1px 1px 4px #fff;
+}
+.img-sound{
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    padding: 5px;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 50%;
+}
+
+/* game-frame styling */
+.game-frame
+{
+    max-width: 100%;
+    height: 550px;
+    border: 2px solid #fff;
+    position: relative;
+}

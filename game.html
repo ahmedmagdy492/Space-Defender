@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shooting the Boxes | Game</title>
+    <link rel="stylesheet" href="./css/game.css">
+</head>
+<body>
+    
+    <div class="container">
+
+        <div class="toolbar">
+            <!-- timer -->
+            <div class="timer">
+                <span id="mins">00</span>
+                :
+                <span id="secs">00</span>
+            </div>
+
+            <div class="score">
+                Score: <span id="score">0</span>
+            </div>
+
+            <!-- sound muter -->
+            <div class="audio">
+                <div><img title="mute/unmute music" id="toggle-sound" src="./imgs/sound.png" class="img-sound" alt=""></div>
+            </div>
+
+            <div class="exit" title="Quit Game">
+                Quit Game
+            </div>
+        </div>
+        <!-- end of toolbar -->
+
+        <!-- game frame -->
+        <div class="game-frame">
+            <img id="player" src="./imgs/player.png" style="width: 80px;position: absolute; height: 80px;" alt="" class="player">
+        </div>
+        <!-- end of game frame -->
+
+    </div>
+    <!-- end of the parent container-->
+
+    <!-- background music -->
+    <audio style="display: none;" loop>
+        <source src="./audio/bck.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="./js/game.js"></script>
+</body>
+</html>

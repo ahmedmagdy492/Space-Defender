@@ -6,6 +6,8 @@ var menu = document.querySelector('.main-menu');
 var menuBtns = document.querySelector('.btns');
 var music = document.querySelector('audio');
 var sound = document.getElementById('toggle-sound');
+var start_btn = document.querySelector('#start_btn');
+var inName = document.querySelector("input[type=text]");
 body.style.background = "url(./imgs/back.png)";
 
 // vars
@@ -57,5 +59,16 @@ sound.onclick = function()
         music.play();
         isPlaying = true;
         sound.src = "./imgs/sound.png";
+    }
+}
+
+// starting the game 
+start_btn.onclick = function()
+{
+    // checking whether he entered a name or not
+    if(inName.value != "")
+    {
+        // start the game
+        location.replace("game.html");
     }
 }
