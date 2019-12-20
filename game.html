@@ -31,12 +31,16 @@
             <div class="exit" title="Quit Game">
                 Quit Game
             </div>
+
+            <div class="stop">
+                <img id="stop-menu" title="Stop/Resume Game" src="/imgs/pause.png" alt="">
+            </div>
         </div>
         <!-- end of toolbar -->
 
         <!-- game frame -->
         <div class="game-frame">
-            <img id="player" src="./imgs/player.png" style="width: 80px;position: absolute; height: 80px;" alt="" class="player">
+            <img id="player" src="./imgs/spacecraft.png" style="width: 80px;position: absolute; height: 80px;" alt="" class="player">
         </div>
         <!-- end of game frame -->
 
@@ -47,6 +51,14 @@
     <audio style="display: none;" loop>
         <source src="./audio/bck.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- game stop -->
+    <div id="stop-game">
+        Pause
+        <ul style="list-style-type: none;margin-top: 30px;">
+            <li>Press <span class="hint">M</span> to mute/unmute the music</li>
+        </ul>
+    </div>
 
     <script src="./js/game.js"></script>
 </body>
