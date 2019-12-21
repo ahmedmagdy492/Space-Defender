@@ -21,6 +21,22 @@ body{
     background: #fff;
     border-radius: 50%;
 }
+.btn-yes{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #2196F3;
+    background: #2196F3;
+    color: #fff;
+    cursor: pointer;
+}
+.btn-no{
+    padding: 10px;
+    border: 1px solid #E91E63;
+    border-radius: 10px;
+    background: #E91E63;
+    color: #fff;
+    cursor: pointer;
+}
 
 /* container styling */
 /* toolbar styling*/
@@ -80,4 +96,19 @@ body{
     height: 550px;
     border: 2px solid #fff;
     position: relative;
+}
+
+/* confirm message */
+.confirm{
+    display: none;
+    box-shadow: 1px 1px 4px #fff;
+    position: absolute;
+    z-index: 7;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background: #fff;
+    color: #000000;
+    width: 400px;
+    height: 400px;
 }

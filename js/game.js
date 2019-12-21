@@ -1,3 +1,22 @@
+// selectors
+var audio = document.querySelectorAll('audio');
+var muter = document.querySelector('#toggle-sound');
+var exitBtn = document.querySelector('.exit');
+var player = document.getElementById('player');
+var game_frame = document.querySelector('.game-frame');
+var stopMenu = document.getElementById("stop-menu");
+var stop = document.getElementById('stop-game');
+var scoreEle = document.getElementById('score');
+var minsEle = document.querySelector('#mins');
+var secsEle = document.querySelector("#secs");
+
+var isPlaying = true;
+var isMusicPlaying = true;
+var score = 0;
+var boxes = [];
+var boxesCreated = 0;
+var rows = 0;
+
 // classes
 var Player = {
     score: this.score,
@@ -19,85 +38,61 @@ var Shoot = function(x, y)
         zIndex: -1,
         boxShadow: "1px 1px 4px #fff"
     }
+    var speed = 10;
+
     // public
     this.x = x;
-    this.y = y;
-    var speed = 10;
+    this.y = y;    
     this.html = create_ele('span', style, game_frame);
-    this.collide = function(obj, index)
+    this.collide = function(obj, index, intId)
     {
-        // updating the score
-        if(obj.isLuck)
-        {
-            score += 3;
-            obj.html.nextSibling.nextSibling.remove();
-            obj.html.nextSibling.remove();
-        }
-        else
-        {
-            score++;     
-        }
-        // removing the collided rocks from the game
-        this.html.remove();
-        obj.html.remove();
-        boxes.splice(index, 1);
-        scoreEle.innerText = score;
-        // checking whether the player won or not
-        if(score < Player.target)
-        {
-            Player.destroyedBoxesCount++;
-        }
-       {// if(parseInt(this.html.style.top) == parseInt(obj.html.style.top)+4 && ((parseInt(this.html.style.left)) >= (parseInt(obj.html.style.left)) && (parseInt(this.html.style.left)) <= (parseInt(obj.html.style.left) + 75)))
-        // {   
-        //     // updating the score
-        //     if(obj.isLuck)
-        //     {
-        //         score += 3;
-        //         obj.html.nextSibling.nextSibling.remove();
-        //         obj.html.nextSibling.remove();
-        //     }
-        //     else
-        //     {
-        //         score++;     
-        //     }
-        //     // removing the collided rocks from the game
-        //     this.html.remove();
-        //     obj.html.remove();
-        //     boxes.splice(index, 1);
-        //     scoreEle.innerText = score;
-        //     // checking whether the player won or not
-        //     if(score < Player.target)
-        //     {
-        //         Player.destroyedBoxesCount++;
-        //     }
-        //     else
-        //     {
-        //         alert(":) Congrates you won");
-        //     }
-        // }
-       }
+       if(parseInt(this.html.style.top) == parseInt(obj.html.style.top)+4 && ((parseInt(this.html.style.left)) >= (parseInt(obj.html.style.left)) && (parseInt(this.html.style.left)) <= (parseInt(obj.html.style.left) + 75)))
+        {   
+            // updating the score
+            // checking whether it's a lucky box or not
+            if(obj.isLuck)
+            {
+                score += 3;
+                obj.html.nextSibling.nextSibling.remove();
+                obj.html.nextSibling.remove();
+                obj.html.remove();   // removing the box
+            }
+            else
+            {
+                if(score < 20)
+                {
+                    score++;
+                }
+                obj.html.remove();   // removing the box
+            }
+
+            // removing the collided boxes from the game
+            this.html.remove();  // removing the shoot            
+            boxes.splice(index, 1);
+            scoreEle.innerText = score;
+            clearInterval(intId);           
+        }       
     }
+
     this.move = function()
     {
         // moving the shoot upwards
         var x = this.x + 30;
         var y = this.y;
-        var thisVar = this;
+        var shootVar = this;
         
         /// making the space craft shoot
         var id = setInterval(() => {
             y -= 10;
             this.html.style.top = y + "px";
             this.html.style.left = x + "px";
+
             // colliding the shoot with the box
             var index = boxes.findIndex(function(box){                
-                return ((parseInt(thisVar.html.style.left)) >= (parseInt(box.html.style.left)) && (parseInt(thisVar.html.style.left)) <= (parseInt(box.html.style.left) + 75)) && (parseInt(thisVar.html.style.top) >= parseInt(box.html.style.top)+4 && (parseInt(thisVar.html.style.top) <= parseInt(box.html.style.top)+4));
+                return ((parseInt(shootVar.html.style.left)) >= (parseInt(box.html.style.left)) && (parseInt(shootVar.html.style.left)) <= (parseInt(box.html.style.left) + 75)) && (parseInt(shootVar.html.style.top) >= parseInt(box.html.style.top)+4 && (parseInt(shootVar.html.style.top) <= parseInt(box.html.style.top)+4));
             });
-            
-            this.collide(boxes[index], index);
-            setTimeout(() => {                
-                clearInterval(id);
-            }, 2000);            
+            var intervalId = id;
+            this.collide(boxes[index], index, intervalId);   
 
         }, speed);
     }
@@ -121,22 +116,6 @@ var Box = function(x, y, isLuck, id)
     this.html.src = isLuck == 0 ? "./imgs/mars.png" : "./imgs/stones.png";
 }
 
-// selectors
-var audio = document.querySelectorAll('audio');
-var muter = document.querySelector('#toggle-sound');
-var exitBtn = document.querySelector('.exit');
-var player = document.getElementById('player');
-var game_frame = document.querySelector('.game-frame');
-var stopMenu = document.getElementById("stop-menu");
-var stop = document.getElementById('stop-game');
-var isPlaying = true;
-var isMusicPlaying = true;
-var score = 0;
-var scoreEle = document.getElementById('score');
-var boxes = [];
-var boxesCreated = 0;
-var rows = 0;
-
 // functions
 function create_ele(name, style, parent)
 {
@@ -147,6 +126,19 @@ function create_ele(name, style, parent)
     }
     parent.appendChild(ele);
     return ele;
+}
+function lose_game()
+{
+    isPlaying = false;
+    ans = confirm(":( sorry you lost, wanna try again ?");
+    if(ans)
+    {
+        location.reload();
+    }
+    else
+    {
+        location.replace("index.html");
+    }
 }
 
 // pushing a row in the array
@@ -166,6 +158,44 @@ function push_row(_y)
         }
         rows++;
     }
+}
+
+// creating a countdown timer
+function count_down(_mins = 04, _secs = 60)
+{
+    // setting the score in html
+    minsEle.innerText = _mins;
+    secsEle.innerText = _secs - 1;
+
+    var mins = _mins;
+    var secs = _secs;
+
+    var timerId = setInterval(() => {
+        if(isPlaying)
+        {
+            if(secs > 0)
+        {
+            secs--;
+        }
+        else
+        {
+            secs = 59;
+            if(mins > 0)
+            {
+                mins--;
+            }
+            else
+            {
+                clearInterval(timerId);
+                secs = 00;
+                mins = 00;
+                lose_game();
+            }
+        }
+        minsEle.innerText = mins;
+        secsEle.innerText = secs;
+        }
+    }, 1000);
 }
 
 // playing background music
@@ -190,7 +220,15 @@ muter.onclick = function()
 // quitting game
 exitBtn.onclick = function()
 {
-    location.replace("index.html");
+    var wantQuit = confirm("Are you sure you want to quit?");
+    if(wantQuit)
+    {
+        location.replace("index.html");
+    }
+    else
+    {
+        return;
+    }
 }
 
 // starting the game
@@ -202,7 +240,7 @@ function start_game()
     player.style.top = window.innerHeight - 200 + "px";
     player.style.left = (window.innerWidth - parseInt(player.style.width)) / 2 + "px";
 
-    // creating the rocks (boxes)
+    // creating the boxes (boxes)
     push_row(0);
 }
 
@@ -211,26 +249,46 @@ window.addEventListener("load", function(){
     // setting up every thing
     start_game();
 
-    // pushing a row of rocks every 2 seconds
+    // starting the countdown timer
+    count_down(4, 60);
+
+    // pushing a row of boxes every 2 seconds
     var counter = 80;
+    var ans;
+    // checking whether the player won or not
     var id = setInterval(function(){
         if(isPlaying)
         {
-            push_row(counter);
-            counter += 80;
+            if(rows < 6)
+            {
+                 // checking whether the player won or not
+                if(score < Player.target)
+                {
+                    Player.destroyedBoxesCount++;
+                    push_row(counter);
+                    counter += 80;
+                }
+                else
+                {
+                    ans = confirm(":) Congrates you won, wanna play again?");
+                    isPlaying = false;
+                    if(ans)
+                    {
+                        location.reload();
+                    }
+                    else
+                    {
+                        location.replace("index.html");
+                    }
+                }                        
+            }
+            else if(rows >= 6)
+            {
+                clearInterval(id);
+                lose_game();
+            }
         }
-        if(rows == 6)
-        {
-            isPlaying = false;            
-            clearInterval(id);
-            alert(":( sorry you lost");
-        }
-        // else if
-        // {
-        //     isPlaying = false;
-        //     clearInterval(id);
-        //     alert(":) Congrats you won");
-        // }
+        
     }, 3000);
 });
 
@@ -264,10 +322,15 @@ window.onkeydown = function(e)
             var obj = new this.Shoot(this.parseInt(player.style.left),this.parseInt(player.style.top));
             obj.move();
         }
-        else if(e.keyCode == 77)
-        {
-            this.muter.onclick();
-        }
+    }
+    // mute/unmute the music when hitting M
+    if(e.keyCode == 77)
+    {
+        this.muter.onclick();
+    }
+    else if(e.keyCode == 27)
+    {
+        this.stopMenu.onclick();
     }
 };
 
