@@ -9,6 +9,7 @@ var stop = document.getElementById('stop-game');
 var scoreEle = document.getElementById('score');
 var minsEle = document.querySelector('#mins');
 var secsEle = document.querySelector("#secs");
+var playerNameEle = document.getElementById("player-name");
 
 var isPlaying = true;
 var isMusicPlaying = true;
@@ -50,12 +51,23 @@ var Shoot = function(x, y)
         {   
             // updating the score
             // checking whether it's a lucky box or not
-            if(obj.isLuck)
-            {
-                score += 3;
-                obj.html.nextSibling.nextSibling.remove();
-                obj.html.nextSibling.remove();
-                obj.html.remove();   // removing the box
+            console.log(obj.isLuck);
+            if(!obj.isLuck)
+            {                
+                if(score < 19)
+                {
+                    score += 3;
+                }
+                if(obj.html.nextSibling != null && obj.html.nextSibling.nextSibling != null)
+                {
+                    obj.html.nextSibling.classList.add("rotate-anim");
+                    obj.html.nextSibling.nextSibling.classList.add("rotate-anim");
+                    setTimeout(function(){
+                        obj.html.nextSibling.nextSibling.remove();
+                        obj.html.nextSibling.remove();
+                    }, 500);
+                    boxes.splice(index, 3);
+                }
             }
             else
             {
@@ -63,14 +75,17 @@ var Shoot = function(x, y)
                 {
                     score++;
                 }
-                obj.html.remove();   // removing the box
             }
-
+            // removing the box
+            obj.html.classList.add("rotate-anim");
+            setTimeout(function(){
+                obj.html.remove();
+            }, 500);
             // removing the collided boxes from the game
             this.html.remove();  // removing the shoot            
             boxes.splice(index, 1);
             scoreEle.innerText = score;
-            clearInterval(intId);           
+            clearInterval(intId);
         }       
     }
 
@@ -92,7 +107,10 @@ var Shoot = function(x, y)
                 return ((parseInt(shootVar.html.style.left)) >= (parseInt(box.html.style.left)) && (parseInt(shootVar.html.style.left)) <= (parseInt(box.html.style.left) + 75)) && (parseInt(shootVar.html.style.top) >= parseInt(box.html.style.top)+4 && (parseInt(shootVar.html.style.top) <= parseInt(box.html.style.top)+4));
             });
             var intervalId = id;
-            this.collide(boxes[index], index, intervalId);   
+            if(index != -1)
+            {
+                this.collide(boxes[index], index, intervalId);
+            }
 
         }, speed);
     }
@@ -112,6 +130,7 @@ var Box = function(x, y, isLuck, id)
     this.x = x;
     this.y = y;
     this.id = id;
+    this.isLuck = isLuck;
     this.html = create_ele('img', style, game_frame);
     this.html.src = isLuck == 0 ? "./imgs/mars.png" : "./imgs/stones.png";
 }
@@ -130,7 +149,8 @@ function create_ele(name, style, parent)
 function lose_game()
 {
     isPlaying = false;
-    ans = confirm(":( sorry you lost, wanna try again ?");
+    ans = confirm(":(last score was "+ localStorage.getItem("score") +" sorry you lost, wanna try again ?",);
+    localStorage.setItem("score", score);
     if(ans)
     {
         location.reload();
@@ -246,6 +266,11 @@ function start_game()
 
 // game update
 window.addEventListener("load", function(){
+
+    // get the name of the user and show it
+    Player.name = localStorage.getItem("name");
+    playerNameEle.innerText = "Welcome " + Player.name;
+
     // setting up every thing
     start_game();
 
@@ -271,6 +296,7 @@ window.addEventListener("load", function(){
                 else
                 {
                     ans = confirm(":) Congrates you won, wanna play again?");
+                    localStorage.setItem("score", score);
                     isPlaying = false;
                     if(ans)
                     {

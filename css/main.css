@@ -116,3 +116,28 @@ body{
     font-size: 20px;
     font-family: "SEINBLUE";
 }
+#last-score{
+    color: #fff;
+}
+.anim-rocket{
+    left: 1000px;
+    transform: rotate(90deg);
+    top: 200px;
+    animation: forward 10s;
+}
+@keyframes forward{
+    0%{
+        left: -1000px;
+        transform: rotate(90deg);
+    }
+    50%{
+        left: 1000px;
+        transform: rotate(-90deg);
+    }
+    /* 75%{
+        transform: rotate(90deg);
+    }
+    100%{
+        left: -1000px;
+    } */
+}

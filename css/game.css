@@ -37,6 +37,24 @@ body{
     color: #fff;
     cursor: pointer;
 }
+.rotate-anim
+{
+    animation: rotate 1s infinite;
+}
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        /* transform: rotate(-360deg); */
+        /* left: -10px; */
+        top: -10px;
+    }
+    100%{
+        transform: rotate(-360deg);
+        top: 10px;
+    }
+}
 
 /* container styling */
 /* toolbar styling*/
@@ -78,7 +96,7 @@ body{
 }
 #stop-game{
     width: 100%;
-    height: 535px;
+    height: 3000px;
     font-size: 30px;
     position: absolute;
     background: #555;
@@ -111,4 +129,19 @@ body{
     color: #000000;
     width: 400px;
     height: 400px;
+}
+#player-name{
+    padding: 10px;
+    color: #fff;
+}
+.anim-move{
+    animation: hook 1s infinite;
+}
+@keyframes hook{
+    0%{
+        transform: rotate(50deg);
+    }
+    100%{
+        transform: rotate(-50deg);
+    }
 }

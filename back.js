@@ -8,11 +8,12 @@ var music = document.querySelector('audio');
 var sound = document.getElementById('toggle-sound');
 var start_btn = document.querySelector('#start_btn');
 var inName = document.querySelector("input[type=text]");
+var lastScore = document.getElementById('last-score');
+var animImg = document.getElementById("anim-img");
 // var welcome = document.getElementById('welcome');
 body.style.background = "url(./imgs/back.png)";
 
 // vars
-///var rndStars = Math.round(Math.random() * 10000);
 var isPlaying = true;
 
 // functions
@@ -60,6 +61,12 @@ window.onload = function()
             this.show_main_menu();
             // focusing on the input
             this.inName.focus();
+            // showing the last score
+            lastScore.innerText = "Your Last Score was " + localStorage.getItem("score");
+            // adding animation to the img
+            setTimeout(function(){
+                animImg.classList.add("anim-move");
+            }, 700);
         }, 300);
        
     }
@@ -72,7 +79,7 @@ window.onload = function()
             if(inName.value != "")
             {
                 // saving name to localstorage
-                // localStorage.setItem("name", inName.value);
+                localStorage.setItem("name", inName.value);
                 // start the game when hitting enter                
                 location.replace("game.html");
             }

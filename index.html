@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shooting boxes | Start</title>
+    <title>Space Defender | Start</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
@@ -13,15 +13,16 @@
 
         <div class="audio">
             <div><img title="mute/unmute music" style="display: none;" id="toggle-sound" src="./imgs/sound.png" class="img-sound" alt=""></div>
+            <div id="last-score"></div>
         </div>
 
         <div class="splash">
-            <h1>Shooting Boxes</h1>
+            <h1>Space Defender</h1>
             <h4 class="blink-anim">Press Any Key to Continue</h4>
         </div>
 
         <div class="main-menu">
-            <h1>Shooting Boxes</h1>
+            <h1>Space Defender</h1>
             <!-- <h3 style="display: none;" id="welcome"></h3> -->
             <div class="btns">                
                 <input type="text" placeholder="Enter Your Name" id="name">
@@ -50,6 +51,9 @@
     <audio style="display: none;" loop>
         <source src="./audio/enter.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- rocket for animation -->
+    <img id="anim-img" src="/imgs/spacecraft.png" style="width: 80px;position: absolute; height: 80px;" class="anim-rocket" alt="">
 
     <script src="back.js"></script>
 </body>
