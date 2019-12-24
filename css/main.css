@@ -125,6 +125,9 @@ body{
     top: 200px;
     animation: forward 10s;
 }
+.anim-move{
+    animation: hook 1s infinite;
+}
 @keyframes forward{
     0%{
         left: -1000px;

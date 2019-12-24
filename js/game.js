@@ -37,7 +37,8 @@ var Shoot = function(x, y)
         borderRadius: "100%",
         background: "#fff",
         zIndex: -1,
-        boxShadow: "1px 1px 4px #fff"
+        boxShadow: "1px 1px 4px #fff",
+        transition: "top 0.1s ease-out"
     }
     var speed = 10;
 

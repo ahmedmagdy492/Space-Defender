@@ -62,11 +62,9 @@ window.onload = function()
             // focusing on the input
             this.inName.focus();
             // showing the last score
-            lastScore.innerText = "Your Last Score was " + localStorage.getItem("score");
+            lastScore.innerText = "Your Last Score was " + (localStorage.getItem("score") != null ? localStorage.getItem("score") : 0);
             // adding animation to the img
-            setTimeout(function(){
-                animImg.classList.add("anim-move");
-            }, 700);
+            
         }, 300);
        
     }

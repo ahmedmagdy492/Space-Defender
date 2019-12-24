@@ -134,9 +134,6 @@ body{
     padding: 10px;
     color: #fff;
 }
-.anim-move{
-    animation: hook 1s infinite;
-}
 @keyframes hook{
     0%{
         transform: rotate(50deg);
