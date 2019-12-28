@@ -10,6 +10,8 @@ var scoreEle = document.getElementById('score');
 var minsEle = document.querySelector('#mins');
 var secsEle = document.querySelector("#secs");
 var playerNameEle = document.getElementById("player-name");
+var pop_up = document.querySelector('.msg-container');
+var btns = document.querySelector('.btns-ask');
 
 var isPlaying = true;
 var isMusicPlaying = true;
@@ -150,16 +152,11 @@ function create_ele(name, style, parent)
 function lose_game()
 {
     isPlaying = false;
-    ans = confirm(":(last score was "+ localStorage.getItem("score") +" sorry you lost, wanna try again ?",);
+    pop_up.style.top = 0;
+    var last_score = localStorage.getItem('score');
+    pop_up.children[1].innerHTML = "Oh Sorry You Lost : ( ";
+    pop_up.children[2].innerHTML = "Your Score is " + score + "<br> Your Last Score Was " + last_score;
     localStorage.setItem("score", score);
-    if(ans)
-    {
-        location.reload();
-    }
-    else
-    {
-        location.replace("index.html");
-    }
 }
 
 // pushing a row in the array
@@ -280,7 +277,6 @@ window.addEventListener("load", function(){
 
     // pushing a row of boxes every 2 seconds
     var counter = 80;
-    var ans;
     // checking whether the player won or not
     var id = setInterval(function(){
         if(isPlaying)
@@ -296,17 +292,14 @@ window.addEventListener("load", function(){
                 }
                 else
                 {
-                    ans = confirm(":) Congrates you won, wanna play again?");
-                    localStorage.setItem("score", score);
+                    //ans = confirm(":) Congrates you won, wanna play again?");
                     isPlaying = false;
-                    if(ans)
-                    {
-                        location.reload();
-                    }
-                    else
-                    {
-                        location.replace("index.html");
-                    }
+                    pop_up.style.top = 0;
+                    var last_score = localStorage.getItem("score");
+                    localStorage.setItem("score", score);
+                    pop_up.children[1].innerHTML = "Well Done You Won :)";
+                    pop_up.children[2].innerHTML = "Your Score is " + score + "<br> Your Last Score Was " + last_score;
+
                 }                        
             }
             else if(rows >= 6)
@@ -375,5 +368,19 @@ stopMenu.onclick = function()
         stopMenu.src = "./imgs/pause.png";
         isPlaying = true;
         stop.style.display = "none";
+    }
+}
+
+// handling the game over window btns
+btns.onclick = function(e)
+{
+    console.log(e);
+    if(e.target.innerText == "Play Again")
+    {
+        location.reload();
+    }
+    else if(e.target.innerText == "Cancel")
+    {
+        location.replace("index.html");
     }
 }
