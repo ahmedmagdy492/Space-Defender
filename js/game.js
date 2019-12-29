@@ -273,7 +273,7 @@ window.addEventListener("load", function(){
     start_game();
 
     // starting the countdown timer
-    count_down(4, 60);
+    count_down(0, 60);
 
     // pushing a row of boxes every 2 seconds
     var counter = 80;
@@ -309,7 +309,7 @@ window.addEventListener("load", function(){
             }
         }
         
-    }, 3000);
+    }, 6000);
 });
 
 // setting the player movement
