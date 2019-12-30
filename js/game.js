@@ -166,7 +166,8 @@ function push_row(_y)
     {
         var x = 10;
         var rand;
-        for(var i = 1; i <= 18; i++)
+        var numOfRows = parseInt(window.innerWidth / 75);
+        for(var i = 1; i <= numOfRows; i++)
         {
             rand = Math.round(Math.random() * 10);
             var box = new Box(x, _y, rand, boxesCreated);
@@ -283,7 +284,7 @@ window.addEventListener("load", function(){
         {
             if(rows < 6)
             {
-                 // checking whether the player won or not
+                // checking whether the player won or not
                 if(score < Player.target)
                 {
                     Player.destroyedBoxesCount++;
