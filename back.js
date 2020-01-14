@@ -47,6 +47,7 @@ function show_main_menu()
 
 window.onload = function()
 {
+    window.oncontextmenu = () => false;
     // playing the background sound
     this.music.play();
     this.body.onkeypress = function(e)

@@ -54,19 +54,19 @@ var Shoot = function(x, y)
         {   
             // updating the score
             // checking whether it's a lucky box or not
-            console.log(obj.isLuck);
+            console.log(obj);
             if(!obj.isLuck)
             {                
                 if(score < 19)
                 {
                     score += 3;
                 }
-                if(obj.html.nextSibling != null && obj.html.nextSibling.nextSibling != null)
+                
+                if(obj.html.nextSibling != null)
                 {
                     obj.html.nextSibling.classList.add("rotate-anim");
-                    obj.html.nextSibling.nextSibling.classList.add("rotate-anim");
-                    setTimeout(function(){
-                        obj.html.nextSibling.nextSibling.remove();
+                    
+                    setTimeout(function(){                    
                         obj.html.nextSibling.remove();
                     }, 500);
                     boxes.splice(index, 3);
@@ -266,6 +266,10 @@ function start_game()
 // game update
 window.addEventListener("load", function(){
 
+    window.oncontextmenu = () => false;
+    window.addEventListener("contextmenu", e => {
+        stopMenu.onclick();
+    });
     // get the name of the user and show it
     Player.name = localStorage.getItem("name");
     playerNameEle.innerText = "Welcome " + Player.name;
