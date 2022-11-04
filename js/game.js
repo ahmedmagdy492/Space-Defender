@@ -46,27 +46,27 @@ var Shoot = function(x, y)
 
     // public
     this.x = x;
-    this.y = y;    
+    this.y = y;
     this.html = create_ele('span', style, game_frame);
     this.collide = function(obj, index, intId)
     {
-       if(parseInt(this.html.style.top) == parseInt(obj.html.style.top)+4 && ((parseInt(this.html.style.left)) >= (parseInt(obj.html.style.left)) && (parseInt(this.html.style.left)) <= (parseInt(obj.html.style.left) + 75)))
-        {   
+       if(parseInt(this.html.style.top) <= parseInt(obj.html.style.top)+4 && ((parseInt(this.html.style.left)) >= (parseInt(obj.html.style.left)) && (parseInt(this.html.style.left) >= parseInt(obj.html.style.left)) && (parseInt(this.html.style.left)) <= (parseInt(obj.html.style.left) + 75)))
+        {
             // updating the score
             // checking whether it's a lucky box or not
             console.log(obj);
             if(!obj.isLuck)
-            {                
+            {
                 if(score < 19)
                 {
                     score += 3;
                 }
-                
+
                 if(obj.html.nextSibling != null)
                 {
                     obj.html.nextSibling.classList.add("rotate-anim");
-                    
-                    setTimeout(function(){                    
+
+                    setTimeout(function(){
                         obj.html.nextSibling.remove();
                     }, 500);
                     boxes.splice(index, 3);
@@ -85,11 +85,11 @@ var Shoot = function(x, y)
                 obj.html.remove();
             }, 500);
             // removing the collided boxes from the game
-            this.html.remove();  // removing the shoot            
+            this.html.remove();  // removing the shoot
             boxes.splice(index, 1);
             scoreEle.innerText = score;
             clearInterval(intId);
-        }       
+        }
     }
 
     this.move = function()
@@ -98,7 +98,7 @@ var Shoot = function(x, y)
         var x = this.x + 30;
         var y = this.y;
         var shootVar = this;
-        
+
         /// making the space craft shoot
         var id = setInterval(() => {
             y -= 10;
@@ -106,8 +106,8 @@ var Shoot = function(x, y)
             this.html.style.left = x + "px";
 
             // colliding the shoot with the box
-            var index = boxes.findIndex(function(box){                
-                return ((parseInt(shootVar.html.style.left)) >= (parseInt(box.html.style.left)) && (parseInt(shootVar.html.style.left)) <= (parseInt(box.html.style.left) + 75)) && (parseInt(shootVar.html.style.top) >= parseInt(box.html.style.top)+4 && (parseInt(shootVar.html.style.top) <= parseInt(box.html.style.top)+4));
+            var index = boxes.findIndex(function(box){
+                return ((parseInt(shootVar.html.style.left)) >= (parseInt(box.html.style.left)) && (parseInt(shootVar.html.style.left)) <= (parseInt(box.html.style.left) + 75)) && (parseInt(shootVar.html.style.top) >= parseInt(box.html.style.top) && (parseInt(shootVar.html.style.top) <= parseInt(box.html.style.top)+4));
             });
             var intervalId = id;
             if(index != -1)
@@ -254,7 +254,8 @@ exitBtn.onclick = function()
 function start_game()
 {
     // setting the position of the stop menu
-    stop.style.top = (window.innerHeight - 550) / 2 + "px";
+    //stop.style.top = (window.innerHeight - 550) / 2 + "px";
+    stop.style.top = "50px";
     // setting the position of the player
     player.style.top = window.innerHeight - 200 + "px";
     player.style.left = (window.innerWidth - parseInt(player.style.width)) / 2 + "px";
@@ -305,7 +306,7 @@ window.addEventListener("load", function(){
                     pop_up.children[1].innerHTML = "Well Done You Won :)";
                     pop_up.children[2].innerHTML = "Your Score is " + score + "<br> Your Last Score Was " + last_score;
 
-                }                        
+                }
             }
             else if(rows >= 6)
             {
@@ -313,7 +314,7 @@ window.addEventListener("load", function(){
                 lose_game();
             }
         }
-        
+
     }, 6000);
 });
 
@@ -362,7 +363,7 @@ window.onkeydown = function(e)
 // handling the pause button
 stopMenu.onclick = function()
 {
-    if(isPlaying)   
+    if(isPlaying)
     {
         stopMenu.src = "./imgs/play.png";
         isPlaying = false;
